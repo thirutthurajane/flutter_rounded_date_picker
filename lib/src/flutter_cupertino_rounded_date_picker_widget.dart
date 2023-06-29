@@ -115,6 +115,11 @@ enum _PickerColumnType {
   dayPeriod,
 }
 
+enum DatePickerMode {
+  MNB,
+  Default,
+}
+
 /// A date picker widget in iOS style.
 ///
 /// There are several modes of the date picker listed in [CupertinoDatePickerMode].
@@ -182,7 +187,10 @@ class FlutterRoundedCupertinoDatePickerWidget extends StatefulWidget {
       this.era,
       this.fontFamily,
       this.background = Colors.white,
-      this.textColor = Colors.black54})
+      this.textColor = Colors.black54,
+        this.datePickerMode = DatePickerMode.MNB,
+      this.label,
+      this.locale = const Locale('en')})
       : initialDateTime = initialDateTime ?? DateTime.now(),
         assert(
           minuteInterval > 0 && 60 % minuteInterval == 0,
@@ -263,7 +271,9 @@ class FlutterRoundedCupertinoDatePickerWidget extends StatefulWidget {
   final Color textColor;
   final double borderRadius;
   final String? fontFamily;
-
+  final String? label;
+  final DatePickerMode datePickerMode;
+  final Locale locale;
   @override
   State<StatefulWidget> createState() {
     // The `time` mode and `dateAndTime` mode of the picker share the time
@@ -375,7 +385,7 @@ class _CupertinoDatePickerDateTimeState
 
   // The difference in days between the initial date and the currently selected date.
   late int selectedDayFromInitial;
-
+  
   // The current selection of the hour picker.
   //
   // If [widget.use24hFormat] is true, values range from 1-24. Otherwise values
@@ -407,6 +417,7 @@ class _CupertinoDatePickerDateTimeState
   @override
   void initState() {
     super.initState();
+
     initialDateTime = widget.initialDateTime;
     selectedDayFromInitial = 0;
     selectedHour = widget.initialDateTime.hour;
@@ -775,6 +786,7 @@ class _CupertinoDatePickerDateState
   @override
   void initState() {
     super.initState();
+
     selectedDay = widget.initialDateTime.day;
     selectedMonth = widget.initialDateTime.month;
     selectedYear = widget.initialDateTime.year;
@@ -845,6 +857,7 @@ class _CupertinoDatePickerDateState
 
   Widget _buildMonthPicker(
       double offAxisFraction, TransitionBuilder itemPositioningBuilder) {
+
     return CupertinoPicker(
       scrollController:
           FixedExtentScrollController(initialItem: selectedMonth - 1),
@@ -939,57 +952,70 @@ class _CupertinoDatePickerDateState
     List<_ColumnBuilder> pickerBuilders = <_ColumnBuilder>[];
     List<double> columnWidths = <double>[];
 
-    switch (localizations.datePickerDateOrder) {
-      case DatePickerDateOrder.mdy:
-        pickerBuilders = <_ColumnBuilder>[
-          _buildMonthPicker,
-          _buildDayPicker,
-          _buildYearPicker
-        ];
-        columnWidths = <double>[
-          estimatedColumnWidths[_PickerColumnType.month.index]!,
-          estimatedColumnWidths[_PickerColumnType.dayOfMonth.index]!,
-          estimatedColumnWidths[_PickerColumnType.year.index]!
-        ];
-        break;
-      case DatePickerDateOrder.dmy:
-        pickerBuilders = <_ColumnBuilder>[
-          _buildDayPicker,
-          _buildMonthPicker,
-          _buildYearPicker
-        ];
-        columnWidths = <double>[
-          estimatedColumnWidths[_PickerColumnType.dayOfMonth.index]!,
-          estimatedColumnWidths[_PickerColumnType.month.index]!,
-          estimatedColumnWidths[_PickerColumnType.year.index]!
-        ];
-        break;
-      case DatePickerDateOrder.ymd:
-        pickerBuilders = <_ColumnBuilder>[
-          _buildYearPicker,
-          _buildMonthPicker,
-          _buildDayPicker
-        ];
-        columnWidths = <double>[
-          estimatedColumnWidths[_PickerColumnType.year.index]!,
-          estimatedColumnWidths[_PickerColumnType.month.index]!,
-          estimatedColumnWidths[_PickerColumnType.dayOfMonth.index]!
-        ];
-        break;
-      case DatePickerDateOrder.ydm:
-        pickerBuilders = <_ColumnBuilder>[
-          _buildYearPicker,
-          _buildDayPicker,
-          _buildMonthPicker
-        ];
-        columnWidths = <double>[
-          estimatedColumnWidths[_PickerColumnType.year.index]!,
-          estimatedColumnWidths[_PickerColumnType.dayOfMonth.index]!,
-          estimatedColumnWidths[_PickerColumnType.month.index]!
-        ];
-        break;
-      default:
-        assert(false, 'date order is not specified');
+    if (widget.datePickerMode == DatePickerMode.MNB) {
+      pickerBuilders = <_ColumnBuilder>[
+        _buildDayPicker,
+        _buildMonthPicker,
+        _buildYearPicker
+      ];
+      columnWidths = <double>[
+        estimatedColumnWidths[_PickerColumnType.dayOfMonth.index]!,
+        estimatedColumnWidths[_PickerColumnType.month.index]!,
+        estimatedColumnWidths[_PickerColumnType.year.index]!
+      ];
+    } else {
+      switch (localizations.datePickerDateOrder) {
+        case DatePickerDateOrder.mdy:
+          pickerBuilders = <_ColumnBuilder>[
+            _buildMonthPicker,
+            _buildDayPicker,
+            _buildYearPicker
+          ];
+          columnWidths = <double>[
+            estimatedColumnWidths[_PickerColumnType.month.index]!,
+            estimatedColumnWidths[_PickerColumnType.dayOfMonth.index]!,
+            estimatedColumnWidths[_PickerColumnType.year.index]!
+          ];
+          break;
+        case DatePickerDateOrder.dmy:
+          pickerBuilders = <_ColumnBuilder>[
+            _buildDayPicker,
+            _buildMonthPicker,
+            _buildYearPicker
+          ];
+          columnWidths = <double>[
+            estimatedColumnWidths[_PickerColumnType.dayOfMonth.index]!,
+            estimatedColumnWidths[_PickerColumnType.month.index]!,
+            estimatedColumnWidths[_PickerColumnType.year.index]!
+          ];
+          break;
+        case DatePickerDateOrder.ymd:
+          pickerBuilders = <_ColumnBuilder>[
+            _buildYearPicker,
+            _buildMonthPicker,
+            _buildDayPicker
+          ];
+          columnWidths = <double>[
+            estimatedColumnWidths[_PickerColumnType.year.index]!,
+            estimatedColumnWidths[_PickerColumnType.month.index]!,
+            estimatedColumnWidths[_PickerColumnType.dayOfMonth.index]!
+          ];
+          break;
+        case DatePickerDateOrder.ydm:
+          pickerBuilders = <_ColumnBuilder>[
+            _buildYearPicker,
+            _buildDayPicker,
+            _buildMonthPicker
+          ];
+          columnWidths = <double>[
+            estimatedColumnWidths[_PickerColumnType.year.index]!,
+            estimatedColumnWidths[_PickerColumnType.dayOfMonth.index]!,
+            estimatedColumnWidths[_PickerColumnType.month.index]!
+          ];
+          break;
+        default:
+          assert(false, 'date order is not specified');
+      }
     }
 
     final List<Widget> pickers = <Widget>[];
@@ -1030,21 +1056,62 @@ class _CupertinoDatePickerDateState
             topRight: Radius.circular(widget.borderRadius)),
         color: widget.background,
       ),
-      child: MediaQuery(
-        data: const MediaQueryData(textScaleFactor: 1.0),
-        child: NotificationListener<ScrollEndNotification>(
-          onNotification: _keepInValidRange,
-          child: DefaultTextStyle.merge(
-            style: _kDefaultPickerTextStyle,
-            child: CustomMultiChildLayout(
-              delegate: _DatePickerLayoutDelegate(
-                columnWidths: columnWidths,
-                textDirectionFactor: textDirectionFactor,
-              ),
-              children: pickers,
-            ),
+      child: Column(
+        children: [
+          Padding(
+              padding: EdgeInsets.only(top: 5),
+              child: Row(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(Icons.close)
+                  ),
+                  const Spacer(),
+                  Text(
+                      widget.label ?? '',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18                                                                                                                                                              ,
+                      ),
+                  ),
+                  const Spacer(),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(DateTime(selectedYear, selectedMonth, selectedDay));
+                      },
+                      child: Text(
+                          "Select",
+                        style: TextStyle(
+                          color: Color(0xFF00B1AE),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18
+                        ),
+                      )
+                  )
+                ],
+              )
           ),
-        ),
+          Expanded(
+              child: MediaQuery(
+                data: const MediaQueryData(textScaleFactor: 1.0),
+                child: NotificationListener<ScrollEndNotification>(
+                  onNotification: _keepInValidRange,
+                  child: DefaultTextStyle.merge(
+                    style: _kDefaultPickerTextStyle,
+                    child: CustomMultiChildLayout(
+                      delegate: _DatePickerLayoutDelegate(
+                        columnWidths: columnWidths,
+                        textDirectionFactor: textDirectionFactor,
+                      ),
+                      children: pickers,
+                    ),
+                  ),
+                ),
+              )
+          )
+        ],
       ),
     );
   }

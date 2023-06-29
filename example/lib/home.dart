@@ -497,12 +497,17 @@ class _HomeState extends State<Home> {
                 const SizedBox(height: 12),
                 FloatingActionButton.extended(
                   onPressed: () async {
-                    await CupertinoRoundedDatePicker.show(context,
-                        fontFamily: "Mali", onDateTimeChanged: (dt) {
+                    var test = await CupertinoRoundedDatePicker.show(context,
+                        label: "Test",
+                        era: EraMode.BUDDHIST_YEAR,
+                        minimumYear: 1000,
+                        maximumYear: 9999,
+                        fontFamily: "Sarabun", onDateTimeChanged: (dt) {
                       setState(() {
                         dateTime = dt;
                       });
                     });
+                    print(test);
                   },
                   label: const Text("Cupertino Rounded Date Picker"),
                 ),

@@ -21,6 +21,7 @@ class CupertinoRoundedDatePicker {
       String? fontFamily,
       Color background = Colors.white,
       Color textColor = Colors.black54,
+        String? label,
       BoxConstraints? constraints}) async {
     initialDate ??= DateTime.now();
     minimumDate ??= DateTime.now().subtract(Duration(days: 7));
@@ -55,6 +56,8 @@ class CupertinoRoundedDatePicker {
           maximumDate: maximumDate,
           maximumYear: maximumYear,
           minimumYear: minimumYear!,
+          label: label,
+          locale: locale ?? Locale('en', 'US')
         );
       },
     );

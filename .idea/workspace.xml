@@ -23,10 +23,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f9f9944-f66c-46c1-913f-9e30c85bf56e" name="Default Changelist" comment="Fixed dragable Cupertino date picker.&#10;Fixed warning Flutter 3.0.">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/widgets/flutter_rounded_date_picker_header.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/flutter_rounded_date_picker_header.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/widgets/flutter_rounded_day_picker.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/flutter_rounded_day_picker.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/cupertino_rounded_date_picker.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/cupertino_rounded_date_picker.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/flutter_cupertino_rounded_date_picker_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/flutter_cupertino_rounded_date_picker_widget.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +58,9 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="1" />
+  </component>
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
@@ -63,12 +70,18 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/Works/flutter_rounded_date_picker",
+    "last_opened_file_path": "/home/thirutth/Desktop/flutter_rounded_date_picker",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "show.migrate.to.gradle.popup": "false"
+    "show.migrate.to.gradle.popup": "false",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -100,6 +113,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1566887686516</updated>
+      <workItem from="1688013929720" duration="8345000" />
     </task>
     <task id="LOCAL-00001" summary="support font-family&#10;support image background header.">
       <created>1566910822276</created>
@@ -250,6 +264,9 @@
     </task>
     <option name="localTasksCounter" value="22" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
