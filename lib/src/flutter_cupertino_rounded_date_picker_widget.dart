@@ -190,6 +190,7 @@ class FlutterRoundedCupertinoDatePickerWidget extends StatefulWidget {
       this.textColor = Colors.black54,
         this.datePickerMode = DatePickerMode.MNB,
       this.label,
+        this.selectLabel,
       this.locale = const Locale('en')})
       : initialDateTime = initialDateTime ?? DateTime.now(),
         assert(
@@ -274,6 +275,7 @@ class FlutterRoundedCupertinoDatePickerWidget extends StatefulWidget {
   final String? label;
   final DatePickerMode datePickerMode;
   final Locale locale;
+  final String? selectLabel;
   @override
   State<StatefulWidget> createState() {
     // The `time` mode and `dateAndTime` mode of the picker share the time
@@ -1082,7 +1084,7 @@ class _CupertinoDatePickerDateState
                         Navigator.of(context).pop(DateTime(selectedYear, selectedMonth, selectedDay));
                       },
                       child: Text(
-                          "Select",
+                        widget.selectLabel ?? 'Select',
                         style: TextStyle(
                           color: Color(0xFF00B1AE),
                           fontWeight: FontWeight.bold,
